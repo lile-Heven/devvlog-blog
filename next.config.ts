@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Skip ESLint during build — no eslint config file in repo */
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   /* React Strict Mode: double-mount in dev to catch side-effects */
   reactStrictMode: true,
 

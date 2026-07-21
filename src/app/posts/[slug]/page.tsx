@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   const ogImage = post.frontmatter.cover
     ? `${SITE_CONFIG.url}${post.frontmatter.cover}`
-    : `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(post.frontmatter.title)}`;
+    : undefined;
 
   return {
     title: post.frontmatter.title,
@@ -43,13 +43,13 @@ export async function generateMetadata({
       publishedTime: post.frontmatter.date,
       modifiedTime: post.frontmatter.updatedAt,
       tags: post.frontmatter.tags,
-      images: ogImage,
+      images: ogImage ? [ogImage] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: post.frontmatter.title,
       description: post.frontmatter.excerpt,
-      images: ogImage,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
