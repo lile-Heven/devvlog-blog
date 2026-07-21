@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Personal dev vlog blog — built with Next.js, MDX, and a neon-glass design system.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

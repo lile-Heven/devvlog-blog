@@ -1,29 +1,38 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, isValidElement } from "react";
 import { Check, Copy } from "lucide-react";
 
-// 用 any 大法，避开所有类型检查，保留全部功能
-export default function Pre({
+/**
+ * Enhanced <pre> wrapper for code blocks.
+ * Features:
+ * - Language label from className
+ * - Copy to clipboard button (with fallback for older browsers)
+ * - Neon border on hover
+ *
+ * Used as a named export in the MDX component registry (components.tsx).
+ */
+export function Pre({
   children,
   ...props
-}: React.HTMLAttributes<HTMLPreElement> & {
-  children?: React.ReactNode;
-}) {
+}: React.HTMLAttributes<HTMLPreElement>) {
   const [copied, setCopied] = useState(false);
 
-  // 直接 any，让 TS 闭嘴
-  const codeChild = children as any;
-
-  const className = codeChild?.props?.className ?? "";
-  const language = className.replace("language-", "") || "text";
+  // Safely extract language from the first child code element's className
+  let language = "text";
+  if (isValidElement(children) && children.props) {
+    const childProps = children.props as Record<string, unknown>;
+    const rawClass = typeof childProps.className === "string" ? childProps.className : "";
+    language = rawClass.replace("language-", "") || "text";
+  }
 
   const handleCopy = useCallback(async () => {
-    if (!codeChild) return;
-    const text =
-      typeof codeChild.props?.children === "string"
-        ? codeChild.props.children
-        : "";
+    // Extract text content from the code element
+    let text = "";
+    if (isValidElement(children) && children.props) {
+      const childProps = children.props as Record<string, unknown>;
+      text = typeof childProps.children === "string" ? childProps.children : "";
+    }
     if (!text) return;
 
     try {
@@ -31,7 +40,7 @@ export default function Pre({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback
+      // Fallback for older browsers
       const textarea = document.createElement("textarea");
       textarea.value = text;
       textarea.style.position = "fixed";
@@ -43,7 +52,7 @@ export default function Pre({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
-  }, [codeChild]);
+  }, [children]);
 
   return (
     <div className="code-block-wrapper group">
@@ -67,6 +76,3 @@ export default function Pre({
     </div>
   );
 }
-
-// 同时提供命名导出，兼容 import { Pre } 的写法
-export { Pre };

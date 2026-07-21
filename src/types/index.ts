@@ -72,7 +72,7 @@ export const SITE_CONFIG = {
   name: "DevVlog",
   title: "DevVlog — 开发日志",
   description: "从零构建顶级品质的个人博客，记录每日开发历程与思考。",
-  url: "https://devvlog.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://devvlog.vercel.app",
   language: "zh-CN",
   author: {
     name: "Heven",

@@ -4,7 +4,7 @@ import { Calendar, Clock, Tag as TagIcon, ArrowLeft, ArrowRight } from "lucide-r
 import Link from "next/link";
 import { getPostBySlug, getPostSummaries, getAdjacentPosts, extractTocHeadings } from "@/lib/posts";
 import { compileMdx } from "@/lib/mdx";
-import { formatDate, cn } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { SITE_CONFIG } from "@/types";
 import TagBadge from "@/components/ui/TagBadge";
 import ReadingProgress from "@/components/ui/ReadingProgress";
