@@ -1,0 +1,416 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Custom Properties — mineradio-inspired neon palette
+   ============================================================ */
+
+:root {
+  --color-bg: #000000;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-hover: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(0, 245, 212, 0.30);
+
+  --color-neon-cyan: #00F5D4;
+  --color-neon-gold: #F4D28A;
+  --color-neon-blue: #7FD8FF;
+
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-secondary: rgba(255, 255, 255, 0.60);
+  --color-text-muted: rgba(255, 255, 255, 0.38);
+
+  --color-glass-bg: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 20px;
+
+  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ============================================================
+   Base Layer
+   ============================================================ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: rgba(0, 245, 212, 0.25);
+    color: #fff;
+  }
+
+  ::-moz-selection {
+    background-color: rgba(0, 245, 212, 0.25);
+    color: #fff;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-neon-cyan);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Links */
+  a {
+    color: var(--color-neon-cyan);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: #33F7DE;
+  }
+}
+
+/* ============================================================
+   Scrollbar — ultra-thin, glass-style
+   ============================================================ */
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+  }
+}
+
+/* ============================================================
+   Glass Panel Component Base
+   ============================================================ */
+
+@layer components {
+  .glass-panel {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius-md);
+    transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .glass-panel:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-panel-interactive {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.35s ease;
+  }
+
+  .glass-panel-interactive:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 24px rgba(0, 245, 212, 0.08);
+  }
+}
+
+/* ============================================================
+   Neon Text Glow
+   ============================================================ */
+
+@layer components {
+  .neon-text {
+    color: var(--color-neon-cyan);
+    text-shadow:
+      0 0 7px rgba(0, 245, 212, 0.4),
+      0 0 20px rgba(0, 245, 212, 0.15),
+      0 0 40px rgba(0, 245, 212, 0.05);
+  }
+
+  .neon-text-gold {
+    color: var(--color-neon-gold);
+    text-shadow:
+      0 0 7px rgba(244, 210, 138, 0.4),
+      0 0 20px rgba(244, 210, 138, 0.15);
+  }
+
+  .neon-border {
+    border: 1px solid rgba(0, 245, 212, 0.30);
+    box-shadow:
+      0 0 8px rgba(0, 245, 212, 0.15),
+      inset 0 0 8px rgba(0, 245, 212, 0.05);
+  }
+}
+
+/* ============================================================
+   Prose (Article Content) Overrides
+   ============================================================ */
+
+@layer components {
+  .prose {
+    --tw-prose-body: var(--color-text-primary);
+    --tw-prose-headings: rgba(255, 255, 255, 0.95);
+    --tw-prose-links: var(--color-neon-cyan);
+    --tw-prose-bold: rgba(255, 255, 255, 0.95);
+    --tw-prose-counters: var(--color-text-muted);
+    --tw-prose-bullets: var(--color-text-muted);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-text-secondary);
+    --tw-prose-quote-borders: var(--color-neon-cyan);
+    --tw-prose-captions: var(--color-text-muted);
+    --tw-prose-code: var(--color-neon-cyan);
+    --tw-prose-pre-code: var(--color-text-primary);
+    --tw-prose-pre-bg: rgba(0, 0, 0, 0.7);
+    --tw-prose-th-borders: var(--color-border);
+    --tw-prose-td-borders: var(--color-border);
+  }
+
+  /* Heading anchor link styling */
+  .heading-anchor {
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+    margin-left: 0.35em;
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    text-decoration: none !important;
+    font-weight: 400;
+  }
+
+  h1:hover .heading-anchor,
+  h2:hover .heading-anchor,
+  h3:hover .heading-anchor,
+  h4:hover .heading-anchor {
+    opacity: 0.6;
+  }
+
+  .heading-anchor:hover {
+    opacity: 1 !important;
+    color: var(--color-neon-cyan);
+  }
+
+  /* Inline code within prose */
+  .prose code:not(pre code) {
+    background: rgba(0, 245, 212, 0.08);
+    color: var(--color-neon-cyan);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    font-size: 0.9em;
+    font-family: var(--font-mono);
+    border: 1px solid rgba(0, 245, 212, 0.12);
+  }
+
+  /* Blockquotes */
+  .prose blockquote {
+    border-left: 3px solid var(--color-neon-cyan);
+    background: rgba(0, 245, 212, 0.03);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-style: italic;
+  }
+
+  /* Images */
+  .prose img {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* ============================================================
+   Code Block Styling
+   ============================================================ */
+
+@layer components {
+  .code-block-wrapper {
+    position: relative;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .code-block-wrapper:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .code-block-lang {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .code-block-copy {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--font-body);
+  }
+
+  .code-block-copy:hover {
+    color: var(--color-neon-cyan);
+    border-color: var(--color-neon-cyan);
+  }
+
+  .code-block-content {
+    overflow-x: auto;
+    padding: 1rem;
+  }
+
+  .code-block-content pre {
+    margin: 0;
+    background: transparent !important;
+  }
+
+  .code-block-content code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.65;
+    counter-reset: line;
+  }
+
+  /* Line numbers */
+  .code-block-content code .line {
+    display: inline-block;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .code-block-content code .line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 2rem;
+    margin-right: 1.5rem;
+    text-align: right;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    user-select: none;
+  }
+}
+
+/* ============================================================
+   Particle Canvas (full-screen background)
+   ============================================================ */
+
+@layer components {
+  .particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ============================================================
+   Loading / Shimmer
+   ============================================================ */
+
+@layer utilities {
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+/* ============================================================
+   Keyframes (non-Tailwind)
+   ============================================================ */
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  25% { transform: translateY(-15px) translateX(8px) scale(1.1); opacity: 0.6; }
+  50% { transform: translateY(-5px) translateX(-4px) scale(0.95); opacity: 0.4; }
+  75% { transform: translateY(-20px) translateX(-10px) scale(1.05); opacity: 0.5; }
+}
+
+/* ============================================================
+   Responsive helpers
+   ============================================================ */
+
+@layer utilities {
+  .container-narrow {
+    @apply mx-auto max-w-3xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
