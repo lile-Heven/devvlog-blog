@@ -19,7 +19,12 @@ export function Pre({
   const [copied, setCopied] = useState(false);
 
   // Extract language from the code element's className
-  const codeChild = children as React.ReactElement | undefined;
+  //const codeChild = children as React.ReactElement | undefined;
+  // 原来可能类似这样：
+  //const codeChild = children as React.ReactElement;
+  // 改成这样（明确指定 props 类型）：
+  const codeChild = children as React.ReactElement<{ className?: string }>;
+
   const className = codeChild?.props?.className ?? "";
   const language = className.replace("language-", "") || "text";
 
