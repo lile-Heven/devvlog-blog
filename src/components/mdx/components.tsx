@@ -1,12 +1,10 @@
-"use client";
-
 /**
  * Canonical MDX component registry.
  *
  * This module is the single source of truth for all custom MDX components.
- * It is imported by both:
- *  - lib/mdx.ts (server-side) for compileMDX
- *  - MDXRenderer.tsx (client-side) for MDXProvider context
+ * It is imported by lib/mdx.ts (server-side) for compileMDX.
+ * NOTE: This file must NOT have "use client" — compileMDX needs actual
+ * component functions, not client references.
  */
 
 import type { MDXComponents } from "mdx/types";
