@@ -67,3 +67,6 @@ export default function Pre({
     </div>
   );
 }
+
+// 同时提供命名导出，兼容 import { Pre } 的写法
+export { Pre };
