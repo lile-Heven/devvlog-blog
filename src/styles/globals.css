@@ -402,6 +402,36 @@
 }
 
 /* ============================================================
+   Syntax Highlighting (rehype-pretty-code / shiki)
+   ============================================================ */
+
+@layer components {
+  /* Token colors from shiki github-dark theme */
+  .code-block-content code span {
+    color: var(--shiki-default, inherit);
+  }
+
+  /* Highlighted lines */
+  .code-block-content code .highlighted {
+    background: rgba(0, 245, 212, 0.08);
+    display: inline-block;
+    width: 100%;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    border-left: 2px solid var(--color-neon-cyan);
+  }
+
+  /* Diff lines */
+  .code-block-content code .diff.add {
+    background: rgba(0, 245, 212, 0.06);
+  }
+
+  .code-block-content code .diff.remove {
+    background: rgba(255, 80, 80, 0.06);
+  }
+}
+
+/* ============================================================
    Responsive helpers
    ============================================================ */
 

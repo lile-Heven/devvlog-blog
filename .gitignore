@@ -40,3 +40,11 @@ next-env.d.ts
 
 # Content cache
 .contentlayer/
+
+# Local temp/helper files
+.ssh/
+ssh-test.js
+scp-upload.js
+npm-result.txt
+tsc-result.txt
+npm-install-result.txt

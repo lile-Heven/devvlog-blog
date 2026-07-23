@@ -2,6 +2,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
 import { mdxComponents } from "@/components/mdx/components";
 
 /**
@@ -36,6 +37,13 @@ export async function compileMdx(source: string): Promise<{
                 type: "text",
                 value: "#",
               },
+            },
+          ],
+          [
+            rehypePrettyCode,
+            {
+              theme: "github-dark",
+              keepBackground: false,
             },
           ],
         ],

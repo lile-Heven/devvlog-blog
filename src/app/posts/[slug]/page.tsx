@@ -9,6 +9,7 @@ import { SITE_CONFIG } from "@/types";
 import TagBadge from "@/components/ui/TagBadge";
 import ReadingProgress from "@/components/ui/ReadingProgress";
 import TableOfContents from "@/components/ui/TableOfContents";
+import Giscus from "@/components/ui/Giscus";
 
 // ============================================================
 //  Props
@@ -31,7 +32,7 @@ export async function generateMetadata({
 
   const ogImage = post.frontmatter.cover
     ? `${SITE_CONFIG.url}${post.frontmatter.cover}`
-    : undefined;
+    : `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(post.frontmatter.title)}`;
 
   return {
     title: post.frontmatter.title,
@@ -43,13 +44,13 @@ export async function generateMetadata({
       publishedTime: post.frontmatter.date,
       modifiedTime: post.frontmatter.updatedAt,
       tags: post.frontmatter.tags,
-      images: ogImage ? [ogImage] : undefined,
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: post.frontmatter.title,
       description: post.frontmatter.excerpt,
-      images: ogImage ? [ogImage] : undefined,
+      images: [ogImage],
     },
   };
 }
@@ -208,7 +209,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
             {/* Giscus Comments */}
             <div className="mt-12">
-              <CommentsSection />
+              <Giscus />
             </div>
           </div>
         </div>
@@ -217,35 +218,4 @@ export default async function PostPage({ params }: PostPageProps) {
   );
 }
 
-// ============================================================
-//  Giscus Comments (loaded client-side only)
-// ============================================================
 
-function CommentsSection() {
-  return (
-    <div className="glass-panel p-6">
-      <h3 className="text-lg font-display font-semibold text-ink-primary mb-4">
-        Comments
-      </h3>
-      <p className="text-sm text-ink-muted mb-4">
-        Leave a comment via GitHub Discussions.
-      </p>
-      {/* Giscus script loads client-side via next/script would work,
-          but for simplicity, we provide a link to set up Giscus */}
-      <div className="text-sm text-ink-secondary">
-        <p>
-          To enable comments, set up{" "}
-          <a
-            href="https://giscus.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neon-cyan hover:underline"
-          >
-            Giscus
-          </a>{" "}
-          with your GitHub repository.
-        </p>
-      </div>
-    </div>
-  );
-}
